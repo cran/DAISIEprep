@@ -8,35 +8,45 @@ add_asr_node_states(
   phylod,
   asr_method,
   tie_preference = "island",
-  earliest_col = FALSE
+  earliest_col = FALSE,
+  rate_model = NULL
 )
 }
 \arguments{
-\item{phylod}{A `phylo4d` object from the package `phylobase` containing
+\item{phylod}{A \code{phylo4d} object from the package \code{phylobase} containing
 phylogenetic and endemicity data for each species.}
 
 \item{asr_method}{A character string, either "parsimony" or "mk" determines
 whether a maximum parsimony or continuous-time markov model reconstructs the
 ancestral states at each node. See documentation in
-`castor::asr_maximum_parsimony` or `castor::asr_mk` in `castor` R package
-for details on the methods used.}
+\code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}} or \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}} in \code{castor} R
+package for details on the methods used.}
 
 \item{tie_preference}{Character string, either "island" or "mainland" to
-choose the most probable state at each node using the `max.col()` function.
+choose the most probable state at each node using the \code{max.col()} function.
 When a node has island presence and absence equally probable we need to
 decide whether that species should be considered on the island. To consider
-it on the island use `ties.method = "last"` in the `max.col()` function, if
-you consider it not on the island use `ties.method = "first"`. Default is
+it on the island use \code{ties.method = "last"} in the \code{max.col()} function, if
+you consider it not on the island use \code{ties.method = "first"}. Default is
 "island".}
 
 \item{earliest_col}{A boolean to determine whether to take the colonisation
 time as the most probable time (FALSE) or the earliest possible colonisation
 time (TRUE), where the probability of a species being on the island is
 non-zero. Default is FALSE.}
+
+\item{rate_model}{
+Rate model to be used for fitting the transition rate matrix. Can be "ER" (all rates equal), "SYM" (transition rate i-->j is equal to transition rate j-->i), "ARD" (all rates can be different), "SUEDE" (only stepwise transitions i-->i+1 and i-->i-1 allowed, all 'up' transitions are equal, all 'down' transitions are equal) or "SRD" (only stepwise transitions i-->i+1 and i-->i-1 allowed, and each rate can be different). Can also be an index matrix that maps entries of the transition matrix to the corresponding independent rate parameter to be fitted. Diagonal entries should map to 0, since diagonal entries are not treated as independent rate parameters but are calculated from the remaining entries in the transition matrix. All other entries that map to 0 represent a transition rate of zero. The format of this index matrix is similar to the format used by the \code{ace} function in the \code{ape} package. \code{rate_model} is only relevant if \code{transition_matrix==NULL}.
+}
 }
 \value{
-An object of `phylo4d` class with tip and node data
+An object of \code{phylo4d} class with tip and node data
 }
 \description{
 Fits a model of ancestral state reconstruction of island presence
+}
+\details{
+The \code{rate_model} argument documentation is inherited from
+\code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}, therefore, the last sentence about the
+\code{transition_matrix} argument does not apply to \code{add_asr_node_states()}.
 }

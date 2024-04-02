@@ -5,18 +5,23 @@
 \title{Loops through the genera that have missing species and removes the ones that
 are found in the missing genus list which have phylogenetic data. This is
 useful when wanting to know which missing species have not been assigned to
-the island_tbl using `add_multi_missing_species()`.}
+the island_tbl using \code{add_multi_missing_species()}.}
 \usage{
 rm_multi_missing_species(missing_species, missing_genus, island_tbl)
 }
 \arguments{
 \item{missing_species}{Numeric number of missing species from the phylogeny
-that belong to the colonising clade.}
+that belong to the colonising clade. For a clade with missing species this
+is \eqn{n - 1}, where \eqn{n} is the number of missing species in the clade.
+If the clade is an island singleton, the number of missing species is \code{0}
+because by adding the colonist it already counts as one automatically. If
+the clade has more than one species, the \code{missing_species} is \eqn{n - 1}
+because adding the lineage already counts as one.}
 
 \item{missing_genus}{A list of character vectors containing the genera in
 each island clade}
 
-\item{island_tbl}{An instance of the `Island_tbl` class.}
+\item{island_tbl}{An instance of the \code{Island_tbl} class.}
 }
 \value{
 Data frame
@@ -25,7 +30,7 @@ Data frame
 Loops through the genera that have missing species and removes the ones that
 are found in the missing genus list which have phylogenetic data. This is
 useful when wanting to know which missing species have not been assigned to
-the island_tbl using `add_multi_missing_species()`.
+the island_tbl using \code{add_multi_missing_species()}.
 }
 \examples{
 phylod <- create_test_phylod(test_scenario = 6)
