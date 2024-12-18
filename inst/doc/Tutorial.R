@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
   fig.width = 7
 )
 
-## ----setup--------------------------------------------------------------------
+## ----setup, message=FALSE-----------------------------------------------------
 library(DAISIEprep)
 library(ape)
 library(phylobase)
@@ -15,33 +15,34 @@ library(ggtree)
 library(ggimage)
 library(castor)
 
-## ----simulate phylogeny-------------------------------------------------------
-set.seed(
-  1,
-  kind = "Mersenne-Twister",
-  normal.kind = "Inversion",
-  sample.kind = "Rejection"
-)
-phylo <- ape::rcoal(10)
+## ----load phylogeny-----------------------------------------------------------
+data("plant_phylo")
 
-## -----------------------------------------------------------------------------
-phylo$tip.label <- c("Plant_a", "Plant_b", "Plant_c", "Plant_d", "Plant_e",
-                     "Plant_f", "Plant_g", "Plant_h", "Plant_i", "Plant_j")
+## ----class phylogeny----------------------------------------------------------
+class(plant_phylo)
+
+## ----plot phylo---------------------------------------------------------------
+plot(plant_phylo, underscore = TRUE)
 
 ## ----convert phylo to phylo4--------------------------------------------------
-phylo <- phylobase::phylo4(phylo)
-phylobase::plot(phylo)
+plant_phylo <- phylobase::phylo4(plant_phylo)
+phylobase::plot(plant_phylo)
 
 ## ----create island endemcity data---------------------------------------------
-endemicity_status <- sample(
-  x = c("not_present", "endemic", "nonendemic"),
-  size = length(phylobase::tipLabels(phylo)),
-  replace = TRUE,
-  prob = c(0.6, 0.2, 0.2)
+island_species <- data.frame(
+  tip_labels = c("Plant_i", "Plant_g"),
+  tip_endemicity_status = c("endemic", "nonendemic")
+)
+island_species
+
+## -----------------------------------------------------------------------------
+endemicity_status <- create_endemicity_status(
+  phylo = plant_phylo,
+  island_species = island_species
 )
 
 ## ----convert to phylo4d-------------------------------------------------------
-phylod <- phylobase::phylo4d(phylo, as.data.frame(endemicity_status))
+phylod <- phylobase::phylo4d(plant_phylo, endemicity_status)
 
 ## ----plot phylogeny with tip data---------------------------------------------
 plot_phylod(phylod = phylod)
@@ -87,30 +88,14 @@ data_list[[1]]
 data_list[[2]]
 
 ## -----------------------------------------------------------------------------
-coccyzus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Coccyzus.tre", package = "DAISIEprep")
-)
-columbiformes_tree <- ape::read.nexus(
-  file = system.file("extdata", "Columbiformes.tre", package = "DAISIEprep")
-)
-finches_tree <- ape::read.nexus(
-  file = system.file("extdata", "Finches.tre", package = "DAISIEprep")
-)
-mimus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Mimus.tre", package = "DAISIEprep")
-)
-myiarchus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Myiarchus.tre", package = "DAISIEprep")
-)
-progne_tree <- ape::read.nexus(
-  file = system.file("extdata", "Progne.tre", package = "DAISIEprep")
-)
-pyrocephalus_tree <- ape::read.nexus(
-  file = system.file("extdata", "Pyrocephalus.tre", package = "DAISIEprep")
-)
-setophaga_tree <- ape::read.nexus(
-  file = system.file("extdata", "Setophaga.tre", package = "DAISIEprep")
-)
+data(coccyzus_tree, package = "DAISIEprep")
+data(columbiformes_tree, package = "DAISIEprep")
+data(finches_tree, package = "DAISIEprep")
+data(mimus_tree, package = "DAISIEprep")
+data(myiarchus_tree, package = "DAISIEprep")
+data(progne_tree, package = "DAISIEprep")
+data(pyrocephalus_tree, package = "DAISIEprep")
+data(setophaga_tree, package = "DAISIEprep")
 
 ## ----convert Galapagos phylos to phylo4---------------------------------------
 coccyzus_tree <- as(coccyzus_tree, "phylo4")
@@ -164,34 +149,14 @@ island_tbl <- extract_island_species(
 island_tbl
 
 ## ----load galapagos phylod data-----------------------------------------------
-coccyzus_phylod <- readRDS(
-  file = system.file("extdata", "coccyzus_phylod.rds", package = "DAISIEprep")
-)
-columbiformes_phylod <- readRDS(
-  file = system.file(
-    "extdata", "columbiformes_phylod.rds", package = "DAISIEprep"
-  )
-)
-finches_phylod <- readRDS(
-  file = system.file("extdata", "finches_phylod.rds", package = "DAISIEprep")
-)
-mimus_phylod <- readRDS(
-  file = system.file("extdata", "mimus_phylod.rds", package = "DAISIEprep")
-)
-myiarchus_phylod <- readRDS(
-  file = system.file("extdata", "myiarchus_phylod.rds", package = "DAISIEprep")
-)
-progne_phylod <- readRDS(
-  file = system.file("extdata", "progne_phylod.rds", package = "DAISIEprep")
-)
-pyrocephalus_phylod <- readRDS(
-  file = system.file(
-    "extdata", "pyrocephalus_phylod.rds", package = "DAISIEprep"
-  )
-)
-setophaga_phylod <- readRDS(
-  file = system.file("extdata", "setophaga_phylod.rds", package = "DAISIEprep")
-)
+data(coccyzus_phylod, package = "DAISIEprep")
+data(columbiformes_phylod, package = "DAISIEprep")
+data(finches_phylod, package = "DAISIEprep")
+data(mimus_phylod, package = "DAISIEprep")
+data(myiarchus_phylod, package = "DAISIEprep")
+data(progne_phylod, package = "DAISIEprep")
+data(pyrocephalus_phylod, package = "DAISIEprep")
+data(setophaga_phylod, package = "DAISIEprep")
 
 ## ----extract first Galapagos clade--------------------------------------------
 island_tbl <- extract_island_species(

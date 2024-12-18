@@ -2,7 +2,7 @@ Package: DAISIEprep
 Type: Package
 Title: Extracts Phylogenetic Island Community Data from Phylogenetic
         Trees
-Version: 0.4.0
+Version: 1.0.0
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
@@ -40,6 +40,7 @@ URL: https://github.com/joshwlambert/DAISIEprep,
 BugReports: https://github.com/joshwlambert/DAISIEprep/issues
 License: GPL (>= 3)
 Encoding: UTF-8
+LazyData: true
 RoxygenNote: 7.3.1
 Depends: R (>= 4.0)
 biocViews:
@@ -56,7 +57,7 @@ Collate: 'DAISIEprep-package.R' 'add_asr_node_states.R'
         'any_outgroup.R' 'any_polyphyly.R' 'as_daisie_datatable.R'
         'benchmark.R' 'bind_colonist_to_tbl.R' 'check_phylo_data.R'
         'count_missing_species.R' 'create_daisie_data.R'
-        'create_endemicity_status.R' 'create_test_phylod.R'
+        'create_endemicity_status.R' 'create_test_phylod.R' 'data.R'
         'default_params_doc.R' 'endemicity_to_sse_states.R'
         'extract_asr_clade.R' 'extract_clade_name.R'
         'extract_endemic_clade.R' 'extract_endemic_singleton.R'
@@ -73,16 +74,16 @@ Collate: 'DAISIEprep-package.R' 'add_asr_node_states.R'
         'multi_island_tbl-class.R' 'multi_island_tbl-methods.R'
         'plot_colonisation.R' 'plot_performance.R' 'plot_phylod.R'
         'plot_sensitivity.R' 'print-methods.R' 'read_performance.R'
-        'read_sensitivity.R' 'rm_island_colonist.R'
-        'rm_multi_missing_species.R' 'sensitivity.R'
-        'translate_status.R' 'unique_island_genera.R' 'utils.R'
-        'write_biogeobears_input.R'
+        'read_sensitivity.R' 'rm_duplicate_island_species.R'
+        'rm_island_colonist.R' 'rm_multi_missing_species.R'
+        'rm_nonendemic_in_clade.R' 'sensitivity.R' 'translate_status.R'
+        'unique_island_genera.R' 'utils.R' 'write_biogeobears_input.R'
 NeedsCompilation: no
-Packaged: 2024-04-02 10:51:01 UTC; joshlambert
+Packaged: 2024-12-18 00:04:39 UTC; joshlambert
 Author: Joshua W. Lambert [aut, cre] (<https://orcid.org/0000-0001-5218-3046>),
   Luis Valente [aut] (<https://orcid.org/0000-0003-4247-8785>),
   Pedro Santos Neves [aut] (<https://orcid.org/0000-0003-2561-4677>),
   Lizzie Roeble [aut] (<https://orcid.org/0000-0003-3664-4222>),
   Theo Pannetier [aut] (<https://orcid.org/0000-0002-8424-3573>)
 Repository: CRAN
-Date/Publication: 2024-04-02 11:30:06 UTC
+Date/Publication: 2024-12-18 00:20:02 UTC

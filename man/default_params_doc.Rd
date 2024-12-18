@@ -31,6 +31,7 @@ default_params_doc(
   tie_preference,
   earliest_col,
   include_not_present,
+  nested_asr_species,
   num_missing_species,
   species_to_add_to,
   node_pies,
@@ -70,7 +71,9 @@ default_params_doc(
   replicates,
   log_scale,
   parameter_index,
-  sse_model
+  sse_model,
+  force_nonendemic_singleton,
+  ...
 )
 }
 \arguments{
@@ -169,6 +172,18 @@ non-zero. Default is FALSE.}
 \item{include_not_present}{A boolean determining whether species not present
 on the island should be included in island colonist when embedded within an
 island clade. Default is FALSE.}
+
+\item{nested_asr_species}{A \code{character} string which determines whether
+\emph{nested island colonists} are split into separate colonists (\code{"split"}), or
+grouped into a single clade (\code{"group"}). Nested species are those whose tip
+state is on the island, and they have ancestral nodes on the island, but
+there are nodes in between these island state nodes that have the state
+\code{not_present} (i.e. not on the island). Therefore, the colonisation time
+can be extracted as the most recent node state on the island (this can be
+the branching time before the tip if the ancestor node of the tip is not
+on the island), or the older node state of the larger clade, for \code{"split"}
+or \code{"group"} respectively. \strong{Note} This argument only applies when
+\code{extraction_method = "asr"}.}
 
 \item{num_missing_species}{Numeric for the number of missing species in the
 clade.}
@@ -310,6 +325,24 @@ values 1, 2, 3, which here we encode as "not_present", "endemic",
 "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 "endemic", respectively.}
+
+\item{force_nonendemic_singleton}{A boolean that determines whether all
+species that are classified as \code{"nonendemic"} are forced to be extracted as
+singletons (i.e single species lineages). By default it is \code{FALSE} so
+non-endemics can be extracted either as singletons or part of an endemic
+clade. When set to \code{TRUE} all non-endemic species in the tree will be
+single species colonists, with the colonisation time extracted as the stem
+age for the tip in the phylogeny. There are some exceptions to this, please
+see \code{vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")} for more details.
+
+This argument is only active when \code{extraction_method = "asr"}, when
+\code{extraction_method = "min"} this argument will be ignored with a warning,
+as the \code{min} method always extracts non-endemic species as singletons.}
+
+\item{...}{\link{dots} Allows arguments to be passed to \code{\link[castor:asr_mk_model]{castor::asr_mk_model()}}
+and \code{\link[castor:asr_max_parsimony]{castor::asr_max_parsimony()}}. These arguments must match by name
+exactly, see \code{?castor::asr_mk_model()} and \code{?castor::asr_max_parsimony()}
+for information on arguments.}
 }
 \value{
 Nothing

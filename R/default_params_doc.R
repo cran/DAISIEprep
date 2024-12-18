@@ -70,6 +70,17 @@
 #' @param include_not_present A boolean determining whether species not present
 #' on the island should be included in island colonist when embedded within an
 #' island clade. Default is FALSE.
+#' @param nested_asr_species A `character` string which determines whether
+#' _nested island colonists_ are split into separate colonists (`"split"`), or
+#' grouped into a single clade (`"group"`). Nested species are those whose tip
+#' state is on the island, and they have ancestral nodes on the island, but
+#' there are nodes in between these island state nodes that have the state
+#' `not_present` (i.e. not on the island). Therefore, the colonisation time
+#' can be extracted as the most recent node state on the island (this can be
+#' the branching time before the tip if the ancestor node of the tip is not
+#' on the island), or the older node state of the larger clade, for `"split"`
+#' or `"group"` respectively. **Note** This argument only applies when
+#' `extraction_method = "asr"`.
 #' @param num_missing_species Numeric for the number of missing species in the
 #' clade.
 #' @param species_to_add_to Character string with the name of the species to
@@ -171,6 +182,22 @@
 #' "nonendemic", respectively. GeoSSE expects trait values 0, 1, 2, with 0 the
 #' widespread state (here, "nonendemic"), and 1 and 2 are "not_present" and
 #' "endemic", respectively.
+#' @param force_nonendemic_singleton A boolean that determines whether all
+#' species that are classified as `"nonendemic"` are forced to be extracted as
+#' singletons (i.e single species lineages). By default it is `FALSE` so
+#' non-endemics can be extracted either as singletons or part of an endemic
+#' clade. When set to `TRUE` all non-endemic species in the tree will be
+#' single species colonists, with the colonisation time extracted as the stem
+#' age for the tip in the phylogeny. There are some exceptions to this, please
+#' see `vignette("Forcing_nonendemic_singleton", package = "DAISIEprep")` for more details.
+#'
+#' This argument is only active when `extraction_method = "asr"`, when
+#' `extraction_method = "min"` this argument will be ignored with a warning,
+#' as the `min` method always extracts non-endemic species as singletons.
+#' @param ... [dots] Allows arguments to be passed to [castor::asr_mk_model()]
+#' and [castor::asr_max_parsimony()]. These arguments must match by name
+#' exactly, see `?castor::asr_mk_model()` and `?castor::asr_max_parsimony()`
+#' for information on arguments.
 #'
 #' @return Nothing
 #' @author Joshua W. Lambert
@@ -200,6 +227,7 @@ default_params_doc <- function(island_colonist,
                                tie_preference,
                                earliest_col,
                                include_not_present,
+                               nested_asr_species,
                                num_missing_species,
                                species_to_add_to,
                                node_pies,
@@ -239,7 +267,9 @@ default_params_doc <- function(island_colonist,
                                replicates,
                                log_scale,
                                parameter_index,
-                               sse_model
-                               ) {
+                               sse_model,
+                               force_nonendemic_singleton,
+                               ...
+) {
   # nothing
 }
