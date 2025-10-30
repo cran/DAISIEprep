@@ -2,11 +2,11 @@ Package: DAISIEprep
 Type: Package
 Title: Extracts Phylogenetic Island Community Data from Phylogenetic
         Trees
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(given = "Joshua W.",
            family = "Lambert",
-           email = "j.w.l.lambert@rug.nl",
+           email = "joshua.lambert@lshtm.ac.uk",
            role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5218-3046")),
     person(given = "Luis",
@@ -30,7 +30,6 @@ Authors@R: c(
            role = c("aut"),
            comment = c(ORCID = "0000-0002-8424-3573"))
            )
-Maintainer: Joshua W. Lambert <j.w.l.lambert@rug.nl>
 Description: Extracts colonisation and branching times of island
     species to be used for analysis in the R package 'DAISIE'. It uses
     phylogenetic and endemicity data to extract the separate island colonists
@@ -41,7 +40,7 @@ BugReports: https://github.com/joshwlambert/DAISIEprep/issues
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Depends: R (>= 4.0)
 biocViews:
 Imports: methods, ape, phylobase, ggplot2, scales, ggtree, DAISIE,
@@ -79,11 +78,14 @@ Collate: 'DAISIEprep-package.R' 'add_asr_node_states.R'
         'rm_nonendemic_in_clade.R' 'sensitivity.R' 'translate_status.R'
         'unique_island_genera.R' 'utils.R' 'write_biogeobears_input.R'
 NeedsCompilation: no
-Packaged: 2024-12-18 00:04:39 UTC; joshlambert
-Author: Joshua W. Lambert [aut, cre] (<https://orcid.org/0000-0001-5218-3046>),
-  Luis Valente [aut] (<https://orcid.org/0000-0003-4247-8785>),
-  Pedro Santos Neves [aut] (<https://orcid.org/0000-0003-2561-4677>),
-  Lizzie Roeble [aut] (<https://orcid.org/0000-0003-3664-4222>),
-  Theo Pannetier [aut] (<https://orcid.org/0000-0002-8424-3573>)
+Packaged: 2025-10-30 22:15:11 UTC; lshjl15
+Author: Joshua W. Lambert [aut, cre] (ORCID:
+    <https://orcid.org/0000-0001-5218-3046>),
+  Luis Valente [aut] (ORCID: <https://orcid.org/0000-0003-4247-8785>),
+  Pedro Santos Neves [aut] (ORCID:
+    <https://orcid.org/0000-0003-2561-4677>),
+  Lizzie Roeble [aut] (ORCID: <https://orcid.org/0000-0003-3664-4222>),
+  Theo Pannetier [aut] (ORCID: <https://orcid.org/0000-0002-8424-3573>)
+Maintainer: Joshua W. Lambert <joshua.lambert@lshtm.ac.uk>
 Repository: CRAN
-Date/Publication: 2024-12-18 00:20:02 UTC
+Date/Publication: 2025-10-30 23:50:22 UTC
